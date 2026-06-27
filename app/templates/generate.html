@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row g-4"><div class="col-md-6"><div class="card"><div class="kpi-label">Générer une CSR</div>
+<form method="post"><div class="mb-3"><label class="form-label">Common Name (CN) *</label><input type="text" name="cn" class="form-control" placeholder="www.mon-site.com" required></div>
+<div class="mb-3"><label class="form-label">SAN</label><input type="text" name="san" class="form-control" placeholder="api.mon-site.com, 192.168.1.1"><div class="form-text">Séparés par virgules</div></div>
+<div class="row g-2"><div class="col-6"><label class="form-label">Algorithme</label><select name="algo" id="algo" class="form-select" onchange="updateSizes()"><option value="rsa">RSA</option><option value="ecdsa">ECDSA</option></select></div><div class="col-6"><label class="form-label">Taille</label><select name="size" id="size" class="form-select"><option value="2048">2048</option><option value="4096">4096</option></select></div></div>
+<div class="row g-2 mt-2"><div class="col-8"><label class="form-label">Organisation</label><input type="text" name="org" class="form-control" value="PKI Vault Enterprise"></div><div class="col-4"><label class="form-label">Pays</label><input type="text" name="country" class="form-control" value="MA" maxlength="2"></div></div>
+<button type="submit" class="btn-metal mt-3">Générer</button></form></div></div>
+<div class="col-md-6">{% if generated %}<div class="card"><div class="text-success">CSR générée : {{ cn }}</div><textarea class="form-control" rows="10">{{ csr_content }}</textarea><a href="/sign" class="btn-metal mt-2">Signer</a></div>{% else %}<div class="card"><div class="text-muted">Remplissez le formulaire pour générer une CSR.</div></div>{% endif %}</div></div>
+{% endblock %}
+{% block scripts %}<script>function updateSizes(){const a=document.getElementById('algo').value;document.getElementById('size').innerHTML=a==='rsa'?'<option value="2048">2048</option><option value="4096">4096</option>':'<option value="256">P-256</option><option value="384">P-384</option>';}</script>{% endblock %}

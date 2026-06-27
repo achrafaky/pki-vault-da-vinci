@@ -1,0 +1,47 @@
+# Clés privées (SÉCURITÉ !)
+*.key
+*.key.pem
+*.pem
+*.crt
+*.csr
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Logs
+logs/*.log
+
+# Configuration
+.env
+
+# Base de données
+*.db
+*.sqlite3
+pki_vault.db
+
+# Temporaires
+*.tmp
+*.swp
+.DS_Store
+
+# Dossiers de build
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# IDE
+.vscode/
+.idea/
+
+# Fichiers de test
+test*.pem
+mon_csr.pem
+
+# CRL (optionnel)
+pki/*/crl/*.crl.pem
+
+# Dossier pki (conseillé pour la sécurité)
+pki/

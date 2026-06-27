@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between"><span class="kpi-label">Certificats</span><a href="/sign" class="btn-metal btn-sm">Nouveau</a></div>
+<table class="table"><thead><tr><th>CN</th><th>Statut</th><th>Expiration</th><th>Action</th></tr></thead>
+<tbody>{% for c in certs %}<tr><td>{{ c.cn }}</td><td><span class="badge-glass {% if c.status=='valid' %}badge-online{% elif c.status=='revoked' %}badge-offline{% endif %}">{{ c.status }}</span></td><td>{{ c.expires_at or '—' }}</td><td>{% if c.status=='valid' %}<form method="post" action="/revoke/{{ c.id }}"><button class="btn-metal btn-sm">Révoquer</button></form>{% endif %}</td></tr>{% endfor %}</tbody></table>
+{% endblock %}

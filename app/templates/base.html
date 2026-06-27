@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PKI-VAULT · Da Vinci</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/"><i class="fas fa-shield-halved me-2" style="color:#C6A44D;"></i>PKI-<span>VAULT</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-chart-line"></i>Tableau</a></li>
+        <li class="nav-item"><a class="nav-link" href="/viz"><i class="fas fa-cube"></i>Vue 3D</a></li>
+        <li class="nav-item"><a class="nav-link" href="/certificates"><i class="fas fa-list"></i>Certificats</a></li>
+        <li class="nav-item"><a class="nav-link" href="/generate"><i class="fas fa-key"></i>CSR</a></li>
+        <li class="nav-item"><a class="nav-link" href="/sign"><i class="fas fa-file-signature"></i>Signer</a></li>
+        <li class="nav-item"><a class="nav-link" href="/verify"><i class="fas fa-shield-check"></i>Vérifier</a></li>
+      </ul>
+      <span class="badge-glass badge-online me-2"><i class="fas fa-circle" style="font-size:.5rem;animation:pulse 1.5s infinite;"></i> Live</span>
+    </div>
+  </div>
+</nav>
+<div class="container-main">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}{% for cat, msg in messages %}
+  <div class="alert alert-{{ cat }} alert-dismissible fade show mb-3" style="border-radius:16px; background:var(--bg-glass); border:1px solid var(--glass-border);">
+    {{ msg }}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+  {% endfor %}{% endif %}{% endwith %}
+  {% block content %}{% endblock %}
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<style>
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .alert-success{background:rgba(52,168,83,.08); border-color:rgba(52,168,83,.2);}
+  .alert-danger {background:rgba(211,47,47,.08); border-color:rgba(211,47,47,.2);}
+  .alert-warning{background:rgba(198,164,77,.08); border-color:rgba(198,164,77,.2);}
+</style>
+</body>
+</html>

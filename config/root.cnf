@@ -1,0 +1,62 @@
+[ ca ]
+default_ca = CA_default
+
+[ CA_default ]
+dir               = ./pki/root
+certs             = $dir/certs
+crl_dir           = $dir/crl
+new_certs_dir     = $dir/newcerts
+database          = $dir/db/index.txt
+serial            = $dir/db/serial
+RANDFILE          = $dir/private/.rand
+private_key       = $dir/private/root.key.pem
+certificate       = $dir/certs/root.crt.pem
+crlnumber         = $dir/db/crlnumber
+crl               = $dir/crl/root.crl.pem
+crl_extensions    = crl_ext
+default_crl_days  = 30
+default_md        = sha256
+name_opt          = ca_default
+cert_opt          = ca_default
+default_days      = 3650
+preserve          = no
+policy            = policy_strict
+rand_serial       = yes
+
+[ policy_strict ]
+countryName            = match
+stateOrProvinceName    = match
+organizationName       = match
+commonName             = supplied
+
+[ req ]
+default_bits        = 4096
+distinguished_name  = req_distinguished_name
+string_mask         = utf8only
+default_md          = sha256
+x509_extensions     = v3_ca
+
+[ req_distinguished_name ]
+countryName                  = Country Name
+countryName_default          = MA
+stateOrProvinceName          = State
+stateOrProvinceName_default  = Tanger
+organizationName             = Organization
+organizationName_default     = PKI Vault Enterprise
+commonName                   = Common Name
+commonName_default           = PKI Root CA
+
+[ v3_ca ]
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid:always,issuer
+basicConstraints       = critical, CA:true, pathlen:1
+keyUsage               = critical, digitalSignature, cRLSign, keyCertSign
+
+[ v3_intermediate_ca ]
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid:always,issuer
+basicConstraints       = critical, CA:true, pathlen:0
+keyUsage               = critical, digitalSignature, cRLSign, keyCertSign
+
+[ crl_ext ]
+authorityKeyIdentifier = keyid:always
