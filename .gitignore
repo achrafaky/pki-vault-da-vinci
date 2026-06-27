@@ -1,9 +1,10 @@
-# Clés privées (SÉCURITÉ !)
+# Clés privées (SÉCURITÉ !) – on les exclut
 *.key
 *.key.pem
-*.pem
-*.crt
-*.csr
+
+# Mais on autorise les certificats et CSR (sauf les clés)
+# On ne va pas exclure *.pem, *.crt, *.csr globalement.
+# On exclut seulement les clés privées.
 
 # Python
 venv/
@@ -36,12 +37,12 @@ dist/
 .vscode/
 .idea/
 
-# Fichiers de test
+# Fichiers de test (optionnel)
 test*.pem
 mon_csr.pem
 
-# CRL (optionnel)
-pki/*/crl/*.crl.pem
+# CRL (on peut les garder)
+# pki/*/crl/*.crl.pem
 
-# Dossier pki (conseillé pour la sécurité)
-pki/
+# On ne supprime pas pki/ pour que les certificats soient visibles
+# mais on peut exclure les clés privées (déjà fait)
